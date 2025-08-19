@@ -34,6 +34,50 @@ A production-ready web application for managing RTSP streams with customizable t
 - Node.js 18+
 - MongoDB (local installation or Atlas cluster)
 
+### MongoDB Setup
+
+#### Option 1: Local MongoDB Installation
+1. **Download and Install MongoDB Community Server**:
+   - Visit [MongoDB Download Center](https://www.mongodb.com/try/download/community)
+   - Download MongoDB Community Server for your OS
+   - Follow installation instructions for your platform
+
+2. **Start MongoDB Service**:
+   ```bash
+   # Windows (as Administrator)
+   net start MongoDB
+   
+   # macOS (with Homebrew)
+   brew services start mongodb-community
+   
+   # Linux (Ubuntu/Debian)
+   sudo systemctl start mongod
+   ```
+
+3. **Verify Installation**:
+   ```bash
+   mongosh
+   # or
+   mongo
+   ```
+
+#### Option 2: MongoDB Atlas (Cloud)
+1. **Create Atlas Account**:
+   - Go to [MongoDB Atlas](https://www.mongodb.com/atlas)
+   - Sign up for a free account
+
+2. **Create Cluster**:
+   - Click "Build a Database"
+   - Choose "FREE" tier (M0)
+   - Select cloud provider and region
+   - Click "Create"
+
+3. **Get Connection String**:
+   - Click "Connect" on your cluster
+   - Choose "Connect your application"
+   - Copy the connection string
+   - Replace `<password>` with your database user password
+
 ### Backend Setup
 
 1. Navigate to backend directory:
@@ -60,6 +104,11 @@ A production-ready web application for managing RTSP streams with customizable t
    cp .env.example .env
    # Edit .env with your MongoDB URI and other settings
    ```
+   
+   **MongoDB Configuration**:
+   - For local MongoDB: `MONGO_URI=mongodb://localhost:27017/rtsp_app`
+   - For MongoDB Atlas: `MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/rtsp_app`
+   - Replace `username`, `password`, and `cluster` with your actual Atlas credentials
 
 5. Run the backend:
    ```bash
@@ -156,6 +205,26 @@ RTSP.io/
 │   └── tests/              # Frontend tests
 └── docs/                   # Documentation
 ```
+
+## Troubleshooting
+
+### MongoDB Connection Issues
+- **Local MongoDB**: Ensure MongoDB service is running
+  ```bash
+  # Windows
+  net start MongoDB
+  
+  # macOS/Linux
+  sudo systemctl status mongod
+  ```
+- **Atlas Connection**: Verify your IP is whitelisted in Atlas Network Access
+- **Connection String**: Double-check username, password, and cluster name
+- **Database Name**: The app will create the database automatically
+
+### Common Issues
+- **Port 27017 blocked**: Check firewall settings
+- **Authentication failed**: Verify username/password in connection string
+- **Network timeout**: Check internet connection for Atlas
 
 ## Security Notes
 
